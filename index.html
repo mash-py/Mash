@@ -2470,8 +2470,7 @@
       const boot = $('boot');
       if (!boot) return;
 
-      let lang = 'en';
-      try { lang = localStorage.getItem('lang') || 'en'; } catch (e) {}
+      const lang = 'en';   // сайт всегда открывается на английском
 
       const GREET = {
         en: ["HI, I'M MARIA", 'welcome to my little forest', '[ click or press any key to skip ]'],
@@ -2771,15 +2770,13 @@
         ruBtn.setAttribute('aria-pressed', lang === 'ru');
 
         document.documentElement.lang = lang;
-        try { localStorage.setItem('lang', lang); } catch (e) {}
       }
 
       enBtn.addEventListener('click', () => applyLanguage('en'));
       ruBtn.addEventListener('click', () => applyLanguage('ru'));
 
-      let saved = 'en';
-      try { saved = localStorage.getItem('lang') || 'en'; } catch (e) {}
-      applyLanguage(TRANSLATIONS[saved] ? saved : 'en');
+      // при каждом открытии — английский; русский только по кнопке RU
+      applyLanguage('en');
     })();
 
 
