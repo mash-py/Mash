@@ -1,3 +1,3 @@
 # Mash
 
-Personal site: https://mash-py.github.io/
+Personal site: https://mash-py.github.io/Mash/
