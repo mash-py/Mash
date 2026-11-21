@@ -374,6 +374,7 @@
 
     .pbtn.plum { --c: var(--lavender);  --rgb: 201, 168, 238; }
     .pbtn.rose { --c: var(--rose-soft); --rgb: 246, 198, 211; }
+    .pbtn.sun  { --c: var(--firefly);   --rgb: 242, 234, 160; }
 
 
     /* ══════════════════════════════════════
@@ -698,7 +699,11 @@
       align-items: center;
       justify-content: space-between;
       padding: 10px 24px;
-      background: rgba(11, 18, 13, 0.96);
+      /* стекло: полупрозрачный фон + размытие того, что под шапкой */
+      background: rgba(11, 18, 13, 0.55);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      backdrop-filter: blur(14px) saturate(140%);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
     }
 
     /* Светящийся розовый горошек под шапкой */
@@ -1233,7 +1238,7 @@
       font-size: 38px;
       line-height: 1;
       letter-spacing: 2px;
-      color: var(--text-main);
+      color: var(--lavender);
       text-shadow: 3px 3px 0 var(--ink);
     }
 
@@ -1251,17 +1256,16 @@
     }
 
     /* Ссылка внизу карточки (репозиторий, сайт курса) */
-    .item-link {
-      display: inline-block;
-      margin-top: 20px;
-      font-family: var(--f-label);
-      font-size: 12px;
-      letter-spacing: 2px;
-      color: var(--rar);
-      text-decoration: none;
-    }
+    /* названия курсов — жёлтенькие, исследований — лавандовые */
+    #grp-courses + .items .item-name { color: var(--firefly); }
 
-    .item-link:hover { color: var(--text-main); }
+    /* маленькая стеклянная кнопка-ссылка внизу карточки */
+    .item-btn {
+      margin-top: 22px;
+      padding: 8px 18px;
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
 
     /* Закрытые / отрицательные проекты — приглушённая «обычная» редкость */
     .item.r-common { --rar: var(--text-muted); }
@@ -1891,6 +1895,8 @@
             <span class="tag plum">Ablation</span>
             <span class="tag rose">Animal ethics</span>
           </div>
+          <!-- TODO: вставить ссылку на репозиторий вместо # -->
+          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
         </article>
 
         <!-- Исследование 2: E7 -->
@@ -1906,7 +1912,7 @@
             <span class="tag">Transformers</span>
             <span class="tag sun">Statistics</span>
           </div>
-          <a class="item-link" href="https://github.com/mash-py/shutdown-self-relevance-llms">GitHub ↗</a>
+          <a class="pbtn plum item-btn" href="https://github.com/mash-py/shutdown-self-relevance-llms" target="_blank" rel="noopener">GitHub ↗</a>
         </article>
 
         <!-- Исследование 3: self_reference -->
@@ -1922,6 +1928,8 @@
             <span class="tag">7 models</span>
             <span class="tag sun">Preregistered</span>
           </div>
+          <!-- TODO: вставить ссылку на репозиторий вместо # -->
+          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
         </article>
 
         <!-- Исследование 4: arbitrary -->
@@ -1937,6 +1945,8 @@
             <span class="tag plum">Persona vectors</span>
             <span class="tag sun">Statistics</span>
           </div>
+          <!-- TODO: вставить ссылку на репозиторий вместо # -->
+          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
         </article>
 
         <!-- Исследование 5: contagion -->
@@ -1952,6 +1962,8 @@
             <span class="tag plum">Steering</span>
             <span class="tag rose">Negative result</span>
           </div>
+          <!-- TODO: вставить ссылку на репозиторий вместо # -->
+          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
         </article>
       </div>
 
@@ -1970,6 +1982,8 @@
             <span class="tag">Pygame</span>
             <span class="tag rose">EdTech</span>
           </div>
+          <!-- TODO: вставить ссылку на репозиторий вместо # -->
+          <a class="pbtn sun item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
         </article>
 
         <!-- Курс 2: WEBCRAFT -->
@@ -1985,7 +1999,7 @@
             <span class="tag sun">CSS</span>
             <span class="tag rose">EdTech</span>
           </div>
-          <a class="item-link" href="https://mash-py.github.io/webcraft/">webcraft ↗</a>
+          <a class="pbtn sun item-btn" href="https://mash-py.github.io/webcraft/" target="_blank" rel="noopener">WebCraft ↗</a>
         </article>
       </div>
     </div>
