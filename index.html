@@ -157,6 +157,13 @@
     html[lang="ru"] .lain-big        { font-size: clamp(20px, 3.2vw, 34px); line-height: 1.6; }
     html[lang="ru"] .contact-big     { font-size: clamp(44px, 8vw, 96px); }
 
+    /* Шапка по-русски тоже пиксельная: у Press Start 2P есть кириллица */
+    html[lang="ru"] .nav-link {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
     /* Silkscreen рисует буквы как заглавные — для единообразия
        русские подписи тоже переводим в верхний регистр */
     html[lang="ru"] .nav-link,
