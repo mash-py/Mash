@@ -1,0 +1,6 @@
+# Локальные файлы, которые не публикуем
+mash_index.backup-*.html
+сайт.html
+сайт_goblincore.html
+RESEARCH_OVERVIEW.md
+.vscode/
