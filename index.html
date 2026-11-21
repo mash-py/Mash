@@ -164,6 +164,9 @@
       letter-spacing: 1px;
     }
 
+    /* EN / RU — латиница, поэтому кнопки языка всегда в родном пиксельном Silkscreen */
+    html[lang="ru"] .lang-btn { font-family: 'Silkscreen', monospace; }
+
     /* Silkscreen рисует буквы как заглавные — для единообразия
        русские подписи тоже переводим в верхний регистр */
     html[lang="ru"] .nav-link,
