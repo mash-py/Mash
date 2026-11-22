@@ -635,13 +635,6 @@
       text-shadow: none;
     }
 
-    /* Русское приветствие — тем же шрифтом, что и русские заголовки */
-    html[lang="ru"] .boot-line:not(.second) {
-      font-family: 'Press Start 2P', monospace;
-      font-weight: 400;
-      font-size: clamp(22px, 4.4vw, 56px);
-      letter-spacing: 2px;
-    }
 
     .boot-caret {
       display: inline-block;
@@ -978,7 +971,17 @@
       color: var(--rose-soft);
       margin-bottom: 18px;
       animation: fade-up 0.5s 0.7s both;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 6px 18px;
     }
+
+    /* каждая роль — цельный кусок, не рвётся посередине;
+       padding-left гасит хвостовой letter-spacing, чтобы текст стоял ровно по центру */
+    .hero-sub .role { white-space: nowrap; padding-left: 3px; }
+    .hero-sub .role-sep { color: var(--text-muted); }
 
     .hero-bio {
       font-size: var(--font-md);
@@ -1748,6 +1751,9 @@
 
       .hero-btns { justify-content: center; }
 
+      .hero-sub { flex-direction: column; gap: 8px; }
+      .hero-sub .role-sep { display: none; }
+
       .name-main {
         font-size: clamp(64px, 19vw, 110px);
         letter-spacing: 4px;
@@ -1867,7 +1873,7 @@
         </div>
       </div>
 
-      <div class="hero-sub" id="role-txt">Python Dev &nbsp;·&nbsp; Educator &nbsp;·&nbsp; AI Researcher</div>
+      <div class="hero-sub" id="role-txt"><span class="role">Python Dev</span><span class="role-sep">·</span><span class="role">Tutor</span><span class="role-sep">·</span><span class="role">AI Researcher</span></div>
 
       <div class="hero-bio" id="bio-txt">
         <span class="pheart" aria-hidden="true"></span><span class="kw">researching</span> moral representations inside LLMs<br>
@@ -2527,16 +2533,9 @@
       const boot = $('boot');
       if (!boot) return;
 
-      const lang = 'en';   // сайт всегда открывается на английском
-
-      const GREET = {
-        en: ["HI, I'M MARIA", 'welcome to my little forest', '[ click or press any key to skip ]'],
-        ru: ['ПРИВЕТ, Я МАРИЯ', 'добро пожаловать в мой лесок', '[ нажми любую клавишу, чтобы пропустить ]']
-      };
-      const [LINE_1, LINE_2, SKIP] = GREET[lang] || GREET.en;
-      const skipEl = $('boot-skip');
-      if (skipEl) skipEl.textContent = SKIP;
-      if (lang === 'ru') document.documentElement.lang = 'ru';
+      // заставка всегда только на английском
+      const LINE_1 = "HI, I'M MARIA";
+      const LINE_2 = 'welcome to my page';
       const CARET  = '<span class="boot-caret"></span>';
 
       const el1 = $('boot-1');
@@ -2695,7 +2694,7 @@
     ════════════════════════════════════ */
     const TRANSLATIONS = {
       en: {
-        role: 'Python Dev &nbsp;·&nbsp; Educator &nbsp;·&nbsp; AI Researcher',
+        role: '<span class="role">Python Dev</span><span class="role-sep">·</span><span class="role">Tutor</span><span class="role-sep">·</span><span class="role">AI Researcher</span>',
         bio: '<span class="pheart" aria-hidden="true"></span><span class="kw">researching</span> moral representations inside LLMs<br><span class="pheart" aria-hidden="true"></span><span class="kw">teaching</span> kids Python &amp; web &nbsp;·&nbsp; <span class="kw2">Russia</span><br><span class="pheart" aria-hidden="true"></span><span class="kw">building</span> courses, tools &amp; Django projects',
         btnView: 'VIEW PROJECTS',
         btnCon: 'CONTACT',
@@ -2727,7 +2726,7 @@
         conSub: 'open to projects, collabs &amp; conversations<br>about AI, code, consciousness and everything in between'
       },
       ru: {
-        role: 'Python Dev &nbsp;·&nbsp; Преподаватель &nbsp;·&nbsp; AI-исследователь',
+        role: '<span class="role">Python Dev</span><span class="role-sep">·</span><span class="role">Преподаватель</span><span class="role-sep">·</span><span class="role">AI-исследователь</span>',
         bio: '<span class="pheart" aria-hidden="true"></span><span class="kw">исследую</span> моральные представления внутри LLM<br><span class="pheart" aria-hidden="true"></span><span class="kw">учу</span> детей Python и веб &nbsp;·&nbsp; <span class="kw2">Россия</span><br><span class="pheart" aria-hidden="true"></span><span class="kw">создаю</span> курсы, инструменты и Django-проекты',
         btnView: 'ПРОЕКТЫ',
         btnCon: 'НАПИСАТЬ',
