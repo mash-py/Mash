@@ -882,7 +882,7 @@
       align-items: center;
       align-content: center;         /* строка 0/1 и контент держатся вместе по центру */
       gap: 32px 56px;
-      padding: 110px 64px 80px;
+      padding: 170px 64px 40px;
       max-width: 1320px;
       margin: 0 auto;
     }
@@ -983,9 +983,15 @@
     .hero-sub .role { white-space: nowrap; padding-left: 3px; }
     .hero-sub .role-sep { color: var(--text-muted); }
 
+    /* Строки с сердечками: блок по центру, а внутри строки выровнены по левому краю,
+       сердечки стоят ровным столбиком, перенос уходит под текст, а не под сердечко */
     .hero-bio {
+      display: grid;
+      justify-content: center;
+      gap: 10px;
+      text-align: left;
       font-size: var(--font-md);
-      line-height: 2;
+      line-height: 1.6;
       color: var(--text-main);
       margin-bottom: 32px;
       max-width: 560px;
@@ -996,7 +1002,13 @@
 
     .hero-bio .kw  { color: var(--lichen); }
     .hero-bio .kw2 { color: var(--lavender); }
-    .hero-bio .pheart { margin: -2px 12px 0 0; }
+    .bio-line {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 12px;
+    }
+    .hero-bio .pheart { margin-top: calc((1.6em - 12px) / 2); }
+    .hero-bio .nw { white-space: nowrap; }
 
     .hero-btns {
       display: flex;
@@ -1724,7 +1736,7 @@
       .hero {
         grid-template-columns: 1fr;
         gap: 48px;
-        padding: 120px 40px 70px;
+        padding: 180px 40px 30px;
       }
 
       .about-grid {
@@ -1742,7 +1754,7 @@
       .nav-logo { font-size: 22px; }
 
       .hero {
-        padding: 100px 16px 60px;
+        padding: 150px 20px 30px;
         text-align: center;
         justify-items: center;
       }
@@ -1876,9 +1888,7 @@
       <div class="hero-sub" id="role-txt"><span class="role">Python Dev</span><span class="role-sep">·</span><span class="role">Tutor</span><span class="role-sep">·</span><span class="role">AI Researcher</span></div>
 
       <div class="hero-bio" id="bio-txt">
-        <span class="pheart" aria-hidden="true"></span><span class="kw">researching</span> moral representations inside LLMs<br>
-        <span class="pheart" aria-hidden="true"></span><span class="kw">teaching</span> kids Python &amp; web &nbsp;·&nbsp; <span class="kw2">Russia</span><br>
-        <span class="pheart" aria-hidden="true"></span><span class="kw">building</span> courses, tools &amp; Django projects
+        <span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">researching</span> moral representations inside LLMs</span></span><span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">teaching</span> kids Python &amp; web <span class="nw">· <span class="kw2">Russia</span></span></span></span><span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">building</span> courses, tools &amp; Django projects</span></span>
       </div>
 
 
@@ -2695,7 +2705,7 @@
     const TRANSLATIONS = {
       en: {
         role: '<span class="role">Python Dev</span><span class="role-sep">·</span><span class="role">Tutor</span><span class="role-sep">·</span><span class="role">AI Researcher</span>',
-        bio: '<span class="pheart" aria-hidden="true"></span><span class="kw">researching</span> moral representations inside LLMs<br><span class="pheart" aria-hidden="true"></span><span class="kw">teaching</span> kids Python &amp; web &nbsp;·&nbsp; <span class="kw2">Russia</span><br><span class="pheart" aria-hidden="true"></span><span class="kw">building</span> courses, tools &amp; Django projects',
+        bio: '<span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">researching</span> moral representations inside LLMs</span></span><span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">teaching</span> kids Python &amp; web <span class="nw">· <span class="kw2">Russia</span></span></span></span><span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">building</span> courses, tools &amp; Django projects</span></span>',
         btnView: 'VIEW PROJECTS',
         btnCon: 'CONTACT',
         navLinks: ['home', 'projects', 'courses', 'about', 'contact'],
@@ -2727,7 +2737,7 @@
       },
       ru: {
         role: '<span class="role">Python Dev</span><span class="role-sep">·</span><span class="role">Преподаватель</span><span class="role-sep">·</span><span class="role">AI-исследователь</span>',
-        bio: '<span class="pheart" aria-hidden="true"></span><span class="kw">исследую</span> моральные представления внутри LLM<br><span class="pheart" aria-hidden="true"></span><span class="kw">учу</span> детей Python и веб &nbsp;·&nbsp; <span class="kw2">Россия</span><br><span class="pheart" aria-hidden="true"></span><span class="kw">создаю</span> курсы, инструменты и Django-проекты',
+        bio: '<span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">исследую</span> моральные представления внутри LLM</span></span><span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">учу</span> детей Python и веб <span class="nw">· <span class="kw2">Россия</span></span></span></span><span class="bio-line"><span class="pheart" aria-hidden="true"></span><span><span class="kw">создаю</span> курсы, инструменты и Django-проекты</span></span>',
         btnView: 'ПРОЕКТЫ',
         btnCon: 'НАПИСАТЬ',
         navLinks: ['главная', 'проекты', 'курсы', 'обо мне', 'контакт'],
