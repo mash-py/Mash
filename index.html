@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MARIA</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="description" content="Maria: Python developer, programming teacher and independent AI interpretability researcher. Preregistered studies of how LLMs represent moral status, plus Python and web courses for kids.">
   <meta property="og:title" content="MARIA · AI research, Python, teaching">
   <meta property="og:description" content="Preregistered interpretability studies on open LLMs and courses for kids: PyGameCraft, WebCraft.">
@@ -341,8 +342,6 @@
       border-radius: 10px;
       color: var(--c);
       background: linear-gradient(180deg, rgba(var(--rgb), 0.2), rgba(var(--rgb), 0.08));
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
       box-shadow:
         0 8px 24px rgba(0, 0, 0, 0.35),
         inset 0 1px 0 rgba(255, 255, 255, 0.12);
@@ -437,8 +436,6 @@
       border: 1px solid rgba(238, 166, 187, 0.22);
       border-radius: 6px;
       box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
-      -webkit-backdrop-filter: blur(6px);
-      backdrop-filter: blur(6px);
       transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
@@ -1177,18 +1174,18 @@
     .w98,
     .item.px,
     .stat-box.px {
-      background: rgba(22, 36, 26, 0.45);
+      background: rgba(22, 36, 26, 0.5);
       border: 1px solid rgba(238, 166, 187, 0.28);
       border-radius: 10px;
       box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.35),
         inset 0 1px 0 rgba(255, 255, 255, 0.06);
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
+      /* без backdrop-filter: размытие под каждой карточкой поверх живого шума
+         пересчитывалось при прокрутке и давало подлагивания */
     }
     .item.px:hover,
     .stat-box.px:hover {
-      background: rgba(30, 48, 35, 0.55);
+      background: rgba(30, 48, 35, 0.62);
       border-color: rgba(238, 166, 187, 0.5);
       box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.45),
@@ -1825,7 +1822,7 @@
   <div class="fireflies" id="fireflies" aria-hidden="true"></div>
 
   <!-- Курсор-сердечко -->
-  <div id="cursor" aria-hidden="true"><div class="cursor-heart"><i class="sprite" data-sprite="heart" data-px="3"></i></div></div>
+  <div id="cursor" aria-hidden="true"><div class="cursor-heart"><i class="sprite" data-sprite="heart" data-px="2"></i></div></div>
 
 
   <!-- ══════════════════════════════════════
