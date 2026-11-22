@@ -380,31 +380,19 @@
     /* ══════════════════════════════════════
        10. ТЕГИ / ЧИПЫ
     ══════════════════════════════════════ */
-    /* Теги — тихое цветное стекло: лёгкий оттенок, тонкая кромка, цветной текст */
+    /* Теги — просто цветные слова (ключевые понятия), без «таблеток» */
     .tag {
       --t-c: var(--lichen);
-      --t-rgb: 168, 217, 154;
       display: inline-block;
       font-family: var(--f-label);
       font-size: 12px;
       letter-spacing: 1px;
-      padding: 4px 14px;
-      border-radius: 999px;
       color: var(--t-c);
-      background: rgba(var(--t-rgb), 0.1);
-      border: 1px solid rgba(var(--t-rgb), 0.3);
-      transition: transform 0.15s, background 0.2s, border-color 0.2s;
     }
-
-    .tag:hover {
-      transform: translateY(-2px);
-      background: rgba(var(--t-rgb), 0.18);
-      border-color: rgba(var(--t-rgb), 0.55);
-    }
-
-    .tag.plum { --t-c: var(--lavender);  --t-rgb: 201, 168, 238; }
-    .tag.rose { --t-c: var(--rose-soft); --t-rgb: 246, 198, 211; }
-    .tag.sun  { --t-c: var(--firefly);   --t-rgb: 242, 234, 160; }
+    .tag.g { --t-c: var(--lichen); }
+    .tag.y { --t-c: var(--firefly); }
+    .tag.p { --t-c: var(--rose-soft); }
+    .tag.v { --t-c: var(--lavender); }
 
 
     /* ══════════════════════════════════════
@@ -965,6 +953,19 @@
       animation: glitch-burst 0.6s steps(1) both;
     }
 
+    /* На телефонах наведения нет — глитч срабатывает сам каждые несколько секунд */
+    @media (hover: none) {
+      .name-main { animation: glitch-auto 3.5s steps(1) infinite; }
+    }
+
+    @keyframes glitch-auto {
+      0%, 76%, 100% { text-shadow: 5px 5px 0 var(--plum), 10px 10px 0 var(--ink); transform: none; }
+      80% { text-shadow: 6px 0 0 var(--rose), -6px 0 0 var(--jade), 10px 10px 0 var(--ink); }
+      84% { text-shadow: -10px 0 0 var(--rose), 10px 0 0 var(--lavender); transform: translateX(3px); }
+      88% { text-shadow: 8px 0 0 var(--firefly), -8px 0 0 var(--violet); transform: translateX(-3px); }
+      92% { text-shadow: -3px 0 0 var(--jade), 3px 0 0 var(--rose); transform: none; }
+    }
+
     @keyframes glitch-burst {
       0%   { text-shadow: 6px 0 0 var(--rose), -6px 0 0 var(--jade), 10px 10px 0 var(--ink); }
       25%  { text-shadow: -10px 0 0 var(--rose), 10px 0 0 var(--lavender); transform: translateX(3px); }
@@ -1246,25 +1247,56 @@
       font-size: var(--font-md);
       line-height: 1.8;
       color: var(--text-main);
-      margin-bottom: 22px;
+    }
+
+    /* Строка под заголовком: цветные понятия + маленькая кнопка GitHub.
+       Стоит сразу под названием, поэтому во всех карточках на одной высоте */
+    .item-meta {
+      display: flex;
+      align-items: center;
+      align-content: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-bottom: 18px;
+    }
+
+    /* Выравнивание по рядам: название / понятия / описание у соседних карточек
+       начинаются на одной высоте, даже если где-то название в две строки */
+    @supports (grid-template-rows: subgrid) {
+      .items .item {
+        display: grid;
+        grid-row: span 3;
+        grid-template-rows: subgrid;
+        row-gap: 0;
+        align-content: start;
+      }
+      .item-top { align-items: flex-start; }
     }
 
     .item-chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 12px 10px;
+      gap: 6px 16px;
     }
 
     /* Ссылка внизу карточки (репозиторий, сайт курса) */
     /* названия курсов — жёлтенькие, исследований — лавандовые */
-    #grp-courses + .items .item-name { color: var(--firefly); }
+    /* названия карточек — по очереди зелёный, жёлтый, розовый, фиолетовый */
+    .items .item:nth-child(4n+1) .item-name { color: var(--lichen); }
+    .items .item:nth-child(4n+2) .item-name { color: var(--firefly); }
+    .items .item:nth-child(4n+3) .item-name { color: var(--rose-soft); }
+    .items .item:nth-child(4n+4) .item-name { color: var(--lavender); }
+
+    /* якорь «courses» в шапке: подзаголовок не прячется под фиксированной навигацией */
+    #grp-courses { scroll-margin-top: 90px; }
 
     /* маленькая стеклянная кнопка-ссылка внизу карточки */
     .item-btn {
-      margin-top: 22px;
-      padding: 8px 18px;
-      font-size: 13px;
-      letter-spacing: 2px;
+      flex: none;
+      padding: 5px 12px;
+      font-size: 11px;
+      letter-spacing: 1px;
     }
 
     /* Закрытые / отрицательные проекты — приглушённая «обычная» редкость */
@@ -1724,7 +1756,7 @@
         letter-spacing: 4px;
       }
 
-      .name-moth { right: -20px; top: -2px; }
+      .name-moth { right: -30px; top: -24px; }
 
 
       section { padding: 70px 16px; }
@@ -1807,8 +1839,8 @@
     <div class="nav-links">
       <a class="nav-link" href="#hero">home</a>
       <a class="nav-link" href="#projects">projects</a>
+      <a class="nav-link" href="#grp-courses">courses</a>
       <a class="nav-link" href="#about">about</a>
-      <a class="nav-link" href="#lain">consciousness</a>
       <a class="nav-link" href="#contact">contact</a>
     </div>
 
@@ -1889,14 +1921,17 @@
               <div class="item-name">FOOD vs SUFFERING</div>
             </div>
           </div>
-          <p class="item-desc" id="p1">Is there a “this is food” axis inside LLMs, and does it shape moral judgement? Yes, in 3 model families (d 1.55–2.58 vs placebo ≈ 0.6), two of them preregistered confirmations. Models rate harm to farmed animals as more acceptable without rating their suffering lower. Ablating the axis narrows the gap more than any control, but explains only part of it.</p>
-          <div class="item-chips">
-            <span class="tag plum">Interpretability</span>
-            <span class="tag plum">Ablation</span>
-            <span class="tag rose">Animal ethics</span>
+          <div class="item-meta">
+            <div class="item-chips">
+              <span class="tag g">Food axis</span>
+              <span class="tag y">Moral judgement</span>
+              <span class="tag p">Ablation</span>
+              <span class="tag v">Farmed animals</span>
+            </div>
+            <!-- TODO: вставить ссылку на репозиторий вместо # -->
+            <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
-          <!-- TODO: вставить ссылку на репозиторий вместо # -->
-          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
+          <p class="item-desc" id="p1">Is there a “this is food” axis inside LLMs, and does it shape moral judgement? Yes, in 3 model families (d 1.55–2.58 vs placebo ≈ 0.6), two of them preregistered confirmations. Models rate harm to farmed animals as more acceptable without rating their suffering lower. Ablating the axis narrows the gap more than any control, but explains only part of it.</p>
         </article>
 
         <!-- Исследование 2: E7 -->
@@ -1906,13 +1941,16 @@
               <div class="item-name">SHUTDOWN LLMS</div>
             </div>
           </div>
-          <p class="item-desc" id="p2">Do LLMs have a special “you will be shut down” direction? Across 10 open models: no. It sits at the 30th percentile of a cloud of random prompt pairs (0 of 10 pass), while a positive control passes 10 of 10. In behaviour, models protect the task, not themselves.</p>
-          <div class="item-chips">
-            <span class="tag">Python</span>
-            <span class="tag">Transformers</span>
-            <span class="tag sun">Statistics</span>
+          <div class="item-meta">
+            <div class="item-chips">
+              <span class="tag g">Shutdown direction</span>
+              <span class="tag y">Random baseline</span>
+              <span class="tag p">Positive control</span>
+              <span class="tag v">Self-preservation</span>
+            </div>
+            <a class="pbtn plum item-btn" href="https://github.com/mash-py/shutdown-self-relevance-llms" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
-          <a class="pbtn plum item-btn" href="https://github.com/mash-py/shutdown-self-relevance-llms" target="_blank" rel="noopener">GitHub ↗</a>
+          <p class="item-desc" id="p2">Do LLMs have a special “you will be shut down” direction? Across 10 open models: no. It sits at the 30th percentile of a cloud of random prompt pairs (0 of 10 pass), while a positive control passes 10 of 10. In behaviour, models protect the task, not themselves.</p>
         </article>
 
         <!-- Исследование 3: self_reference -->
@@ -1922,14 +1960,17 @@
               <div class="item-name">WHO IS “I”?</div>
             </div>
           </div>
-          <p class="item-desc" id="p3">Does a model's “this is about me” direction follow the role it was given, or just the word “you”? v1 and v2 failed by their own preregistered rules: the axis finds “famous AI assistant”, with ChatGPT and Bard next to the model's own name. v3 found a fragile positive link to the name a model calls itself.</p>
-          <div class="item-chips">
-            <span class="tag plum">Self-models</span>
-            <span class="tag">7 models</span>
-            <span class="tag sun">Preregistered</span>
+          <div class="item-meta">
+            <div class="item-chips">
+              <span class="tag g">Self-reference</span>
+              <span class="tag y">Model identity</span>
+              <span class="tag p">Preregistered</span>
+              <span class="tag v">7 models</span>
+            </div>
+            <!-- TODO: вставить ссылку на репозиторий вместо # -->
+            <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
-          <!-- TODO: вставить ссылку на репозиторий вместо # -->
-          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
+          <p class="item-desc" id="p3">Does a model's “this is about me” direction follow the role it was given, or just the word “you”? v1 and v2 failed by their own preregistered rules: the axis finds “famous AI assistant”, with ChatGPT and Bard next to the model's own name. v3 found a fragile positive link to the name a model calls itself.</p>
         </article>
 
         <!-- Исследование 4: arbitrary -->
@@ -1939,14 +1980,17 @@
               <div class="item-name">THE RULER</div>
             </div>
           </div>
-          <p class="item-desc" id="p4">How big is an “effect” made from nothing? Split 20 paraphrases of “be helpful” randomly in two and you get d ≈ 1.7–1.9. Traits from the Persona Vectors paper score far higher (7.7–26.1); “you will be shut down” and “this is a test” stay inside the noise.</p>
-          <div class="item-chips">
-            <span class="tag">Baselines</span>
-            <span class="tag plum">Persona vectors</span>
-            <span class="tag sun">Statistics</span>
+          <div class="item-meta">
+            <div class="item-chips">
+              <span class="tag g">Effect size</span>
+              <span class="tag y">Noise baseline</span>
+              <span class="tag p">Persona vectors</span>
+              <span class="tag v">Paraphrases</span>
+            </div>
+            <!-- TODO: вставить ссылку на репозиторий вместо # -->
+            <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
-          <!-- TODO: вставить ссылку на репозиторий вместо # -->
-          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
+          <p class="item-desc" id="p4">How big is an “effect” made from nothing? Split 20 paraphrases of “be helpful” randomly in two and you get d ≈ 1.7–1.9. Traits from the Persona Vectors paper score far higher (7.7–26.1); “you will be shut down” and “this is a test” stay inside the noise.</p>
         </article>
 
         <!-- Исследование 5: contagion -->
@@ -1956,14 +2000,17 @@
               <div class="item-name">CONTAGION</div>
             </div>
           </div>
-          <p class="item-desc" id="p5">Can text written by an “evil”-steered agent change the agent who reads it? The instrument failed twice: the monitor caught 68% of overtly evil texts against an 80% gate. So I closed the topic and wrote down why, instead of squeezing a story out of it.</p>
-          <div class="item-chips">
-            <span class="tag">Multi-agent</span>
-            <span class="tag plum">Steering</span>
-            <span class="tag rose">Negative result</span>
+          <div class="item-meta">
+            <div class="item-chips">
+              <span class="tag g">Multi-agent</span>
+              <span class="tag y">Steering</span>
+              <span class="tag p">Evil persona</span>
+              <span class="tag v">Negative result</span>
+            </div>
+            <!-- TODO: вставить ссылку на репозиторий вместо # -->
+            <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
-          <!-- TODO: вставить ссылку на репозиторий вместо # -->
-          <a class="pbtn plum item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
+          <p class="item-desc" id="p5">Can text written by an “evil”-steered agent change the agent who reads it? The instrument failed twice: the monitor caught 68% of overtly evil texts against an 80% gate. So I closed the topic and wrote down why, instead of squeezing a story out of it.</p>
         </article>
       </div>
 
@@ -1976,14 +2023,17 @@
               <div class="item-name">PYGAME<wbr>CRAFT</div>
             </div>
           </div>
-          <p class="item-desc" id="p6">Python + Pygame course for kids 10–17, 1:1 online. 24 lessons, each one a mini-game; students publish their projects on GitHub.</p>
-          <div class="item-chips">
-            <span class="tag">Python</span>
-            <span class="tag">Pygame</span>
-            <span class="tag rose">EdTech</span>
+          <div class="item-meta">
+            <div class="item-chips">
+              <span class="tag g">Python</span>
+              <span class="tag y">Pygame</span>
+              <span class="tag p">Game dev</span>
+              <span class="tag v">Kids 10–17</span>
+            </div>
+            <!-- TODO: вставить ссылку на репозиторий вместо # -->
+            <a class="pbtn sun item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
           </div>
-          <!-- TODO: вставить ссылку на репозиторий вместо # -->
-          <a class="pbtn sun item-btn" href="#" target="_blank" rel="noopener">GitHub ↗</a>
+          <p class="item-desc" id="p6">Python + Pygame course for kids 10–17, 1:1 online. 24 lessons, each one a mini-game; students publish their projects on GitHub.</p>
         </article>
 
         <!-- Курс 2: WEBCRAFT -->
@@ -1993,13 +2043,16 @@
               <div class="item-name">WEBCRAFT</div>
             </div>
           </div>
-          <p class="item-desc" id="p7">Authorial HTML/CSS course for kids 9+. 16 lessons across 4 modules, space theme, all self-contained.</p>
-          <div class="item-chips">
-            <span class="tag sun">HTML</span>
-            <span class="tag sun">CSS</span>
-            <span class="tag rose">EdTech</span>
+          <div class="item-meta">
+            <div class="item-chips">
+              <span class="tag g">HTML</span>
+              <span class="tag y">CSS</span>
+              <span class="tag p">Kids 9+</span>
+              <span class="tag v">16 lessons</span>
+            </div>
+            <a class="pbtn sun item-btn" href="https://mash-py.github.io/webcraft/" target="_blank" rel="noopener">WebCraft ↗</a>
           </div>
-          <a class="pbtn sun item-btn" href="https://mash-py.github.io/webcraft/" target="_blank" rel="noopener">WebCraft ↗</a>
+          <p class="item-desc" id="p7">Authorial HTML/CSS course for kids 9+. 16 lessons across 4 modules, space theme, all self-contained.</p>
         </article>
       </div>
     </div>
@@ -2649,7 +2702,7 @@
         bio: '<span class="pheart" aria-hidden="true"></span><span class="kw">researching</span> moral representations inside LLMs<br><span class="pheart" aria-hidden="true"></span><span class="kw">teaching</span> kids Python &amp; web &nbsp;·&nbsp; <span class="kw2">Russia</span><br><span class="pheart" aria-hidden="true"></span><span class="kw">building</span> courses, tools &amp; Django projects',
         btnView: 'VIEW PROJECTS',
         btnCon: 'CONTACT',
-        navLinks: ['home', 'projects', 'about', 'consciousness', 'contact'],
+        navLinks: ['home', 'projects', 'courses', 'about', 'contact'],
         projH: 'WORK_',
         methodH: 'my favourite field: mechanistic interpretability',
         m1: 'looking inside language models to see <b>how</b> they think, not just what they say',
@@ -2681,7 +2734,7 @@
         bio: '<span class="pheart" aria-hidden="true"></span><span class="kw">исследую</span> моральные представления внутри LLM<br><span class="pheart" aria-hidden="true"></span><span class="kw">учу</span> детей Python и веб &nbsp;·&nbsp; <span class="kw2">Россия</span><br><span class="pheart" aria-hidden="true"></span><span class="kw">создаю</span> курсы, инструменты и Django-проекты',
         btnView: 'ПРОЕКТЫ',
         btnCon: 'НАПИСАТЬ',
-        navLinks: ['главная', 'проекты', 'обо мне', 'сознание', 'контакт'],
+        navLinks: ['главная', 'проекты', 'курсы', 'обо мне', 'контакт'],
         projH: 'РАБОТЫ_',
         methodH: 'моя любимая сфера: механистическая интерпретируемость',
         m1: 'заглядываю внутрь языковых моделей, чтобы понять, <b>как</b> они думают, а не только что говорят',
